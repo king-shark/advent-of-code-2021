@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventCalendar", "AdventCalendar\AdventCalendar.csproj", "{CB41FCE0-3E93-471D-A80B-0440D1BAAB5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB41FCE0-3E93-471D-A80B-0440D1BAAB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB41FCE0-3E93-471D-A80B-0440D1BAAB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB41FCE0-3E93-471D-A80B-0440D1BAAB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB41FCE0-3E93-471D-A80B-0440D1BAAB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD8BA6E2-DDB1-4198-BA75-7E273E279870}
+	EndGlobalSection
+EndGlobal
