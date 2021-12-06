@@ -34,14 +34,12 @@ namespace AdventCalendar
             Debug.WriteLine("Day 5: Great, now there's geothermal vents. Well, no matter. If I comb the map data, it looks like there are only {0} points I need to avoid. Easy.", ventMap.GetVentDensity(2));
             ventMap = GetPuzzleDataFour("AdventPuzzleInput5.txt", true);
             Debug.WriteLine("Day 5: Did I seriously forget to include diagonal vents?? Now it looks like there are {0} points I need to avoid. Only slightly less easy.", ventMap.GetVentDensity(2));
-
-
-            //This solution works for part 1 but it is not scalable for part 2
+            
             LanternFishStudy fishStudy = GetPuzzleDataFive("AdventPuzzleInput6.txt", 80);
             Debug.WriteLine("Day 6: A swarm of lanternfish. Surely those sleigh keys have to be somewhere around here! I guess as long as I'm here, better perform some data analytics on these lanternfishes. ");        
-            Debug.WriteLine("Based on my calculations and assumptions about lanternfish breeding habits, I bet after {0} days, there will be {1} fish altogether.", fishStudy.days, fishStudy.lanternFishCollection.Count);
-            //fishStudy = GetPuzzleDataFive("AdventPuzzleInput6.txt", 256);
-            Debug.WriteLine("Day 6: By Santa's Beard... If these fish were to find a way to acheive immortality, then after a mere {0} days, there would be {1} of them!", fishStudy.days, fishStudy.lanternFishCollection.Count);
+            Debug.WriteLine("Based on my calculations and assumptions about lanternfish breeding habits, I bet after {0} days, there will be {1} fish altogether.", fishStudy.days, fishStudy.GetTotal());
+            fishStudy = GetPuzzleDataFive("AdventPuzzleInput6.txt", 256);
+            Debug.WriteLine("Day 6: By Santa's Beard... If these fish were to find a way to acheive immortality, then after a mere {0} days, there would be {1} of them!", fishStudy.days, fishStudy.GetTotal());
             Debug.WriteLine("I must find Santa's sleigh keys so I can inform him of this potential threat to Christmas!");
 
         }
@@ -168,7 +166,8 @@ namespace AdventCalendar
 
         static LanternFishStudy GetPuzzleDataFive(string filename, int studyLength)
         {
-            List<int> intList = new List<int>();
+            Dictionary<int, Int64> intList = new Dictionary<int, Int64>();
+            //List<int> intList = new List<int>();
             string line;
             StreamReader reader = File.OpenText(filename);
             while ((line = reader.ReadLine()) != null)
@@ -176,7 +175,9 @@ namespace AdventCalendar
                 string[] lineArray = line.Split(',');
                 foreach (string number in lineArray)
                 {
-                    intList.Add(Int32.Parse(number));
+                    //intList[Int32.Parse(number)]++;
+                    if (intList.ContainsKey(Int32.Parse(number))) { intList[Int32.Parse(number)]++; }
+                    else { intList.Add(Int32.Parse(number), 1); }
                 }
             }
 
