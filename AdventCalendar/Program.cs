@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Runtime;
 
 namespace AdventCalendar
@@ -23,6 +25,25 @@ namespace AdventCalendar
             List<string> puzzleInput3 = GetPuzzleData("AdventPuzzleInput3.txt");
             Debug.WriteLine("Day 3: Moving on to Day 3, Puzzle number one's data input says that the power consumption of the submarine is: " + AdventCalendarPuzzleFunctionFive(puzzleInput3));
             Debug.WriteLine("Day 3: Furthermore, based on my exquisite calculations, the life support rating of our submarine is: " + AdventCalendarPuzzleFunctionSix(puzzleInput3));
+
+            Bingo bingoGame = GetPuzzleDataThree("AdventPuzzleInput4.txt",5,5);
+            Debug.WriteLine("Day 4: Bingo with a squid then. Alright. If I am to win, I must pick the board with a final score of " + bingoGame.PlayBingo());
+            Debug.WriteLine("Day 4: However, might it not be prudent to let the beast win? Perhaps I should pick the board guaranteed to lose. It would be the one with a final score of " + bingoGame.LoseBingo());
+
+            GeoThermalVentMap ventMap = GetPuzzleDataFour("AdventPuzzleInput5.txt", false);
+            Debug.WriteLine("Day 5: Great, now there's geothermal vents. Well, no matter. If I comb the map data, it looks like there are only {0} points I need to avoid. Easy.", ventMap.GetVentDensity(2));
+            ventMap = GetPuzzleDataFour("AdventPuzzleInput5.txt", true);
+            Debug.WriteLine("Day 5: Did I seriously forget to include diagonal vents?? Now it looks like there are {0} points I need to avoid. Only slightly less easy.", ventMap.GetVentDensity(2));
+
+
+            //This solution works for part 1 but it is not scalable for part 2
+            LanternFishStudy fishStudy = GetPuzzleDataFive("AdventPuzzleInput6.txt", 80);
+            Debug.WriteLine("Day 6: A swarm of lanternfish. Surely those sleigh keys have to be somewhere around here! I guess as long as I'm here, better perform some data analytics on these lanternfishes. ");        
+            Debug.WriteLine("Based on my calculations and assumptions about lanternfish breeding habits, I bet after {0} days, there will be {1} fish altogether.", fishStudy.days, fishStudy.lanternFishCollection.Count);
+            //fishStudy = GetPuzzleDataFive("AdventPuzzleInput6.txt", 256);
+            Debug.WriteLine("Day 6: By Santa's Beard... If these fish were to find a way to acheive immortality, then after a mere {0} days, there would be {1} of them!", fishStudy.days, fishStudy.lanternFishCollection.Count);
+            Debug.WriteLine("I must find Santa's sleigh keys so I can inform him of this potential threat to Christmas!");
+
         }
 
         static int AdventCalendarPuzzleFunctionFive(List<string> list)
@@ -126,6 +147,92 @@ namespace AdventCalendar
                 flightInstructions.Add(instruction);
             }
             return flightInstructions;
+        }
+        static GeoThermalVentMap GetPuzzleDataFour(string filename, bool includeDiagonal)
+        {
+            List<Vent> vents = new List<Vent>();
+            StreamReader reader = File.OpenText(filename);
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                int x = 0;
+                int y = 0;
+                string[] lineArray = line.Split(" -> ");
+                string[] point0 = lineArray[0].Split(',');
+                string[] point1 = lineArray[1].Split(',');
+                vents.Add(new Vent(new Point(Int32.Parse(point0[0]), Int32.Parse(point0[1])), new System.Drawing.Point(Int32.Parse(point1[0]), Int32.Parse(point1[1]))));
+            }
+            GeoThermalVentMap map = new GeoThermalVentMap(1000, 1000, vents, includeDiagonal);
+            return map;
+        }
+
+        static LanternFishStudy GetPuzzleDataFive(string filename, int studyLength)
+        {
+            List<int> intList = new List<int>();
+            string line;
+            StreamReader reader = File.OpenText(filename);
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] lineArray = line.Split(',');
+                foreach (string number in lineArray)
+                {
+                    intList.Add(Int32.Parse(number));
+                }
+            }
+
+            LanternFishStudy study = new LanternFishStudy(intList, studyLength);
+            return study;
+        }
+
+        static Bingo GetPuzzleDataThree(string filename, int width, int height)
+        {
+            Bingo game = new Bingo();
+            int[,] boardData = new int[width, height];
+            List<int[]> rows = new List<int[]>();
+            string line;
+            int lineNumber = 1;
+            StreamReader reader = File.OpenText(filename);
+            while ((line = reader.ReadLine()) != null)
+            {
+                //read in called numbers
+                if (lineNumber == 1)
+                {
+                    string[] lineArray = line.Split(',');
+                    foreach (string item in lineArray)
+                    {
+                        game.calledNumbers.Add(Int32.Parse(item));
+                    }
+                }
+                //start of board data
+                if (lineNumber > 2)
+                {
+                    if (line != "")
+                    {
+                        string[] lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        int[] row = new int[width];
+                        for (int i = 0; i < width; i++)
+                        {
+                            row[i] = Int32.Parse(lineArray[i]);
+                        }
+                        rows.Add(row);
+                        if (rows.Count == height)
+                        {
+                            boardData = new int[width, height];
+                            for (int y = 0; y < rows.Count; y++)
+                            {
+                                for (int x = 0; x < rows[y].Length; x++)
+                                {
+                                    boardData[x, y] = rows[y][x];
+                                }
+                            }
+                            game.bingoBoards.Add(new BingoBoard(width, height, boardData));
+                            rows = new List<int[]>();
+                        }
+                    }
+                }
+                lineNumber++;
+            }
+            return game;
         }
 
         static int AdventCalenderPuzzleTwo(List<FlightInstruction> flightInstructions, bool aiming)
