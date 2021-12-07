@@ -1,17 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AdventCalendar
 {
     public class Bingo
     {
-        public List<BingoBoard> bingoBoards { get; set; }
-        public List<BingoBoard> winningBoards { get; set; }
-        public List<int> calledNumbers { get; set; }
-        public Bingo()
+        static public List<BingoBoard> bingoBoards { get; set; }
+        static public List<BingoBoard> winningBoards { get; set; }
+        static public List<int> calledNumbers { get; set; }
+        public Bingo(string filename, int width, int height)
         {
             bingoBoards = new List<BingoBoard>();
             calledNumbers = new List<int>();
+            GetBingoData(filename, width, height);
+        }
+        static void GetBingoData(string filename, int width, int height)
+        {
+            int[,] boardData = new int[width, height];
+            List<int[]> rows = new List<int[]>();
+            string line;
+            int lineNumber = 1;
+            StreamReader reader = File.OpenText(filename);
+            while ((line = reader.ReadLine()) != null)
+            {
+                //read in called numbers
+                if (lineNumber == 1)
+                {
+                    string[] lineArray = line.Split(',');
+                    foreach (string item in lineArray)
+                    {
+                        calledNumbers.Add(Int32.Parse(item));
+                    }
+                }
+                //start of board data
+                if (lineNumber > 2)
+                {
+                    if (line != "")
+                    {
+                        string[] lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        int[] row = new int[width];
+                        for (int i = 0; i < width; i++)
+                        {
+                            row[i] = Int32.Parse(lineArray[i]);
+                        }
+                        rows.Add(row);
+                        if (rows.Count == height)
+                        {
+                            boardData = new int[width, height];
+                            for (int y = 0; y < rows.Count; y++)
+                            {
+                                for (int x = 0; x < rows[y].Length; x++)
+                                {
+                                    boardData[x, y] = rows[y][x];
+                                }
+                            }
+                            bingoBoards.Add(new BingoBoard(width, height, boardData));
+                            rows = new List<int[]>();
+                        }
+                    }
+                }
+                lineNumber++;
+            }
         }
         public int PlayBingo()
         {

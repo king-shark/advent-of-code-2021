@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using System.IO;
 
 namespace AdventCalendar
 {
     public class GeoThermalVentMap
     {
         int[,] map;
-        public GeoThermalVentMap(int width, int height, List<Vent> ventList, bool includeDiagonal)
+
+        public GeoThermalVentMap(string filename, int width, int height, bool includeDiagonal)
         {
             map = new int[width, height];
-            foreach (Vent vent in ventList)
+            StreamReader reader = File.OpenText(filename);
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
+                string[] lineArray = line.Split(" -> ");
+                string[] point0 = lineArray[0].Split(',');
+                string[] point1 = lineArray[1].Split(',');
+                Vent vent = new Vent(new Point(Int32.Parse(point0[0]), Int32.Parse(point0[1])), new System.Drawing.Point(Int32.Parse(point1[0]), Int32.Parse(point1[1])));
                 if (vent.IsHorizontal || vent.IsVertical)
                 {
                     AddVent(vent);
