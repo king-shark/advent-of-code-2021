@@ -38,9 +38,11 @@ namespace AdventCalendar
             Debug.WriteLine("Day 6: By Santa's Beard... If these fish were to find a way to acheive immortality, then after a mere {0} days, there would be {1} of them!", days, puzzle6.GetTotal());
             Debug.WriteLine("I must find Santa's sleigh keys so I can inform him of this potential threat to Christmas!");
 
-            //List<int> puzzle7 = GetPuzzleData("AdventPuzzleInput7");
-            //Debug.WriteLine("Day 7: It is difficult to concentrate over the sound of the alarms but I have them to thank for having avoided becoming lunch for a whale! These crabs are trying to help me.");
-            //Debug.WriteLine("All I need to do is get them to move to the position where the sum is: {0}", AdventCalendarPuzzleFunctionSeven(puzzleInput1));
+            CrabSubmarine puzzle7 = new CrabSubmarine("AdventPuzzleInput7.txt");
+            Debug.WriteLine("Day 7: It is difficult to concentrate over the sound of the alarms but I have them to thank for having avoided becoming lunch for a whale! These crabs are trying to help me.");
+            Debug.WriteLine("All I need to do is get them to move to the position where the sum is: {0}", puzzle7.GetMostFuelEfficientPosition());
+            Debug.WriteLine("Day 7: The crabs are dissatisfied with my results. It looks like my assumptions about crab submarine fuel consumption were wrong.");
+            Debug.WriteLine("After a brief update to my code, I have determined that the correct position to move to is: {0}", puzzle7.GetCrabMostFuelEfficientPosition());
         }
     }
 }
