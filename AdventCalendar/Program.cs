@@ -31,7 +31,7 @@ namespace AdventCalendar
             LanternFishStudy puzzle6 = new LanternFishStudy("AdventPuzzleInput6.txt", 7, 2);
             int days = 80;
             puzzle6.UpdateFish(days);
-            Debug.WriteLine("Day 6: A swarm of lanternfish. Surely those sleigh keys have to be somewhere around here! I guess as long as I'm here, better perform some data analytics on these lanternfishes. ");        
+            Debug.WriteLine("Day 6: A swarm of lanternfish. Surely those sleigh keys have to be somewhere around here! I guess as long as I'm here, I better perform some data analytics on these lanternfishes. There sure do seem to be a lot of them. ");        
             Debug.WriteLine("Based on my calculations and assumptions about lanternfish breeding habits, I bet after {0} days, there will be {1} fish altogether.", days, puzzle6.GetTotal());
             days = 256;
             puzzle6.UpdateFish(days);
@@ -39,10 +39,15 @@ namespace AdventCalendar
             Debug.WriteLine("I must find Santa's sleigh keys so I can inform him of this potential threat to Christmas!");
 
             CrabSubmarine puzzle7 = new CrabSubmarine("AdventPuzzleInput7.txt");
-            Debug.WriteLine("Day 7: It is difficult to concentrate over the sound of the alarms but I have them to thank for having avoided becoming lunch for a whale! These crabs are trying to help me.");
+            Debug.WriteLine("Day 7: It is difficult to concentrate over the sound of the alarms but I have them to thank for having avoided becoming lunch for a whale! These crabs in submarines seem to be trying to help me.");
             Debug.WriteLine("All I need to do is get them to move to the position where the sum is: {0}", puzzle7.GetMostFuelEfficientPosition());
             Debug.WriteLine("Day 7: The crabs are dissatisfied with my results. It looks like my assumptions about crab submarine fuel consumption were wrong.");
             Debug.WriteLine("After a brief update to my code, I have determined that the correct position to move to is: {0}", puzzle7.GetCrabMostFuelEfficientPosition());
+
+            SevenSegmentDisplay puzzle8 = new SevenSegmentDisplay("AdventPuzzleInput8.txt");
+            Debug.WriteLine("Day 8: Now the display is acting up. Let's see, I think I can translate the garbled output into something usable.");
+            Debug.WriteLine("I think the number of times 1,4, 7 and 8 appear is {0}", puzzle8.GetEasyNumberCount());
+            Debug.WriteLine("Day 8: I think I've cracked a way to read the output. If I'm right, the total of all the output digits should be {0}.", puzzle8.GetOutputSum());
         }
     }
 }

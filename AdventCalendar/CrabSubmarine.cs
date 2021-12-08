@@ -9,7 +9,6 @@ namespace AdventCalendar
     public class CrabSubmarine
     {
         List<int> arr = new List<int>();
-        
         public CrabSubmarine(string filename)
         {
             string line;

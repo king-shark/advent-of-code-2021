@@ -29,7 +29,6 @@ namespace AdventCalendar
         public int CalculateFlightPath(bool aiming)
         {
             int horizontalPos = 0, depth = 0, aim = 0;
-
             foreach (var instruction in flightInstructions)
             {
                 switch (instruction.direction)
