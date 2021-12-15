@@ -48,6 +48,19 @@ namespace AdventCalendar
             Debug.WriteLine("Day 8: Now the display is acting up. Let's see, I think I can translate the garbled output into something usable.");
             Debug.WriteLine("I think the number of times 1,4, 7 and 8 appear is {0}", puzzle8.GetEasyNumberCount());
             Debug.WriteLine("Day 8: I think I've cracked a way to read the output. If I'm right, the total of all the output digits should be {0}.", puzzle8.GetOutputSum());
+
+            //LavaTubes puzzle9 = new LavaTubes("AdventPuzzleInput9.txt");
+            //Debug.WriteLine("Day 9: Now that I've got my bearings, it seems I have entered a series of interconnected lava tubes. The smoke is collected at points with the lowest elevation compared to surrounding points.");
+            //Debug.WriteLine("It looks like the total height of these points is: {0}", puzzle9.GetLowPoints());
+
+            NavigationSubsystem puzzle10 = new NavigationSubsystem("AdventPuzzleInput10.txt");
+            Debug.WriteLine("The syntax error score is: {0}", puzzle10.syntaxErrorScore);
+            Debug.WriteLine("The autocomplete score is: {0}", puzzle10.GetAutocompleteScore());
+
+            //Day 12
+            PassagePathing puzzle12 = new PassagePathing("AdventPuzzleInput12.txt");
+            Debug.WriteLine("Number of paths to the end that traverse small nodes only once is " + puzzle12.PathCount);
+            Debug.WriteLine("Number of paths to the end that traverse one small node twice and the rest only once is " + puzzle12.PathCount2);
         }
     }
 }
