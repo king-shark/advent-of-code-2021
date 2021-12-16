@@ -77,6 +77,16 @@ namespace AdventCalendar
             PassagePathing puzzle12 = new PassagePathing("AdventPuzzleInput12.txt");
             Debug.WriteLine("Day 12: Number of paths to the end that traverse small nodes only once is " + puzzle12.PathCount);
             Debug.WriteLine("Day 12: Number of paths to the end that traverse one small node twice and the rest only once is " + puzzle12.PathCount2);
+
+            //Day 13
+
+            //Day 14
+            steps = 10;
+            Polymerization puzzle14 = new Polymerization("AdventPuzzleInput14.txt", steps);
+            Debug.WriteLine("Day 14: After {0} steps, the difference between the quantity of the most common element and least common element is {1}", steps, puzzle14.GetPuzzleAnswer());
+            steps = 40;
+            puzzle14 = new Polymerization("AdventPuzzleInput14.txt", steps);
+            Debug.WriteLine("Day 14: After {0} steps, the difference between the quantity of the most common element and least common element is {1}", steps, puzzle14.GetPuzzleAnswer());
         }
     }
 }
