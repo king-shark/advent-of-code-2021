@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace AdventCalendar
 {
@@ -118,6 +116,7 @@ namespace AdventCalendar
                 newList.Add(new Coord(x + 1, y + 1));
                 return newList;
             }
+            
         }
         public int x
         {
@@ -125,12 +124,20 @@ namespace AdventCalendar
             {
                 return Int32.Parse(val.Split(',')[0]);
             }
+            set
+            {
+                val = value + "," + y;
+            }
         }
         public int y
         {
             get
             {
                 return Int32.Parse(val.Split(',')[1]);
+            }
+            set
+            {
+                val = x + "," + value;
             }
         }
         public Coord(int x, int y)

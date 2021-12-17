@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace AdventCalendar
 {
@@ -87,6 +88,20 @@ namespace AdventCalendar
             steps = 40;
             puzzle14 = new Polymerization("AdventPuzzleInput14.txt", steps);
             Debug.WriteLine("Day 14: After {0} steps, the difference between the quantity of the most common element and least common element is {1}", steps, puzzle14.GetPuzzleAnswer());
+
+            //Day 15
+            ChitonMap puzzle15 = new ChitonMap("AdventPuzzleInput15.txt", 1);
+            Debug.WriteLine("Day 15: If I want to get out of these caves, I'll need to pick the path with the lowest risk score which is {0}", puzzle15.DestinationNode.TentativeDistance);
+            //puzzle15 = new ChitonMap("AdventPuzzleInput15.txt", 5);
+            //Debug.WriteLine("Day 15: These caves are bigger than I thought and they seem to only get more dangerous the further out I sweep. It looks like now the lowest risk path has a score of {0}", puzzle15.DestinationNode.TentativeDistance);
+
+            //Day 16
+
+            //Day 17
+            //TargetingArray puzzle16 = new TargetingArray(new Target(20, 30, -5, -10));
+            TargetingArray puzzle16 = new TargetingArray(new Target(139, 187, -89, -148));
+            Debug.WriteLine("Day 16: Launching this probe into a trench, let's see what kind of sweet air I can get! Whoa I could launch this thing up to {0} and still hit the trench!!", puzzle16.CalculateTrickShot());
+            Debug.WriteLine("Day 16: Alright but seriously though, it looks like there are plenty of other trajectories I could use. I count {0}", puzzle16.CalculateValidTrajectories());
         }
     }
 }
